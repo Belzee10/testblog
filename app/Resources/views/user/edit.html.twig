@@ -1,0 +1,20 @@
+{% extends '::layout.html.twig' %}
+{% block title %}{{ parent() }} | User edit{% endblock %}
+
+{% block content %}
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success msg" role="alert">
+            <i class="fa fa-exclamation"></i>
+            <span class="sr-only">Success:</span>{{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Create" class="btn main-color" />
+        <a class="btn main-color" href="{{ path('user_index') }}">Back to the list</a>
+    {{ form_end(edit_form) }}
+
+
+{% endblock %}

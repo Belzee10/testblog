@@ -1,0 +1,24 @@
+{% extends '::layout.html.twig' %}
+{% block title %}{{ parent() }} | User creation{% endblock %}
+
+{% block content %}
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success msg" role="alert">
+            <i class="fa fa-exclamation"></i>
+            <span class="sr-only">Success:</span>{{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(form, {'attr': {'id':'new'}}) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" class="btn main-color" />
+        <a class="btn main-color" href="{{ path('user_index') }}">Back to the list</a>
+    {{ form_end(form) }}
+
+{% endblock %}
+
+
+
+
+

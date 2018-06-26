@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Test Blog{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link href="{{ asset('bundles/TestBlog/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/TestBlog/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/TestBlog/css/styles.css') }}" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+
+    {% block header %}
+        <header class="header">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{ path('test_blog_StartPage') }}">TEST BLOG</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav pull-right">
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                {% if app.user.role == 'ROLE_AUTHOR' %}
+                                    <li><a href="{{ path('article_index') }}">My Articles</a></li>
+                                {% elseif app.user.role == 'ROLE_ADMIN' %}
+                                    <li><a href="{{ path('user_index') }}">Authors</a></li>
+                                {% endif %}
+                                <li><a href="{{ path('logout') }}">Logout</a></li>
+                            {% else %}
+                                <li><a href="{{ path('login') }}">Login</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+
+    <section class="main">
+        <div class="container content">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="text-muted text-center">Test Blog © 2017</p>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h2 class="modal-title" id="myModalLabel"><i class="fa fa-warning"></i> Warning</h2>
+                </div>
+                <div style="font-size: 12pt" class="modal-body">
+                    Are you sure you want to delete this element?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-option="yesdelete" class="btn btn-danger optiondelete">Eliminar</button>
+                    <button type="button" data-option="nodelete" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        <script src="{{ asset('bundles/TestBlog/js/jquery-3.1.1.js') }}"></script>
+        <script src="{{ asset('bundles/TestBlog/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/TestBlog/js/app.js') }}"></script>
+    {% endblock %}
+</body>
+</html>

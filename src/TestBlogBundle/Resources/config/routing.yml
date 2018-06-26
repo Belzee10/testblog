@@ -1,0 +1,31 @@
+test_blog_article:
+    resource: "@TestBlogBundle/Resources/config/routing/article.yml"
+    prefix:   /art
+
+test_blog_user:
+        resource: "@TestBlogBundle/Resources/config/routing/user.yml"
+        prefix:   /user
+
+test_blog_StartPage:
+    path:     /
+    defaults: { _controller: TestBlogBundle:Default:StartPage }
+
+more_articles:
+    path:     /more-articles
+    defaults: { _controller: TestBlogBundle:Default:MoreArticles }
+
+filter_by_category:
+    path:     /filter-by-category/{value}
+    defaults: { _controller: TestBlogBundle:Default:FilterByCategory }
+
+article_details:
+    path:     /article/{id}
+    defaults: { _controller: "TestBlogBundle:Article:articleDetails" }
+    methods:  GET
+
+login:
+    path: /login
+    defaults: { _controller: TestBlogBundle:Default:login }
+
+logout:
+    path: /logout

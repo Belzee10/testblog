@@ -1,0 +1,31 @@
+{% extends '::layout.html.twig' %}
+{% block title %}{{ parent() }} | Article details{% endblock %}
+
+{% block content %}
+
+    <div class="article-title text-center">
+        <h2>{{ article.title }}</h2>
+        <span>by {{ article.author.name|upper }} {% if article.date %}{{ article.date|date('M d Y')|upper }}{% endif %}</span>
+    </div>
+    <article>
+        <img src="{{ asset(article.image) }}" class="img-responsive" alt="{{ article.title }}">
+        <div class="row article-full-description">
+            <div class="col-md-4">
+                <h3>CATEGORIES</h3>
+                <ul>
+                    {% set categ = article.categories|split(',') %}
+                    {% for c in categ %}
+                        <li>
+                            <a>{{ c }}</a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <div class="col-md-8">
+              {{ article.content }}
+            </div>
+        </div>
+    </article>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends '::layout.html.twig' %}
+{% block content %}
+
+    <div class="control text-center">
+        {% for c in categories %}
+            <a data-path="{{ path('filter_by_category', {'value': c}) }}" class="btn category">{{ c }}</a>
+        {% endfor %}
+        <div class="alert alert-success successful-filtering" role="alert">
+            Filtered by <span></span>
+        </div>
+    </div>
+
+    {% for a in articles %}
+
+        <article>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <img src="{{asset(a.image)}}" class="img-responsive" alt="{{ a.title }}">
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 article-description">
+                    <h2>{{ a.title }}</h2>
+                    <p>{{ a.content|truncate(300) }}</p>
+                    <a class="btn main-color" href="{{ path('article_details', {'id': a.id}) }}">READ MORE</a>
+                </div>
+            </div>
+            <hr class="divider visible-xs">
+        </article>
+
+    {% endfor %}
+
+    {% if cantArticles > 3 %}
+        <div class="control text-center moreArticles">
+            <a id="buttonMoreArticles" class="btn" data-path="{{ path('more_articles') }}">Load more articles</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

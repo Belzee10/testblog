@@ -1,0 +1,23 @@
+{% extends '::layout.html.twig' %}
+{% block title %}{{ parent() }} | Login{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+    <form class="form form-signin" role="form" action="{{ path('login') }}" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="email" class="form-control" name="_username" value="{{ last_username }}" placeholder="Email address" required autofocus>
+        <input type="password" class="form-control" name="_password" placeholder="Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        {% if error %}
+            <div class="alert alert-danger mensajes msg" style="margin-top: 15px">
+                <span class="sr-only">Error:</span>
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+    </form>
+
+
+{% endblock %}

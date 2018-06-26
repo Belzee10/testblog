@@ -1,0 +1,45 @@
+{% extends '::layout.html.twig' %}
+{% block title %}{{ parent() }} | Article edit{% endblock %}
+
+{% block content %}
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success msg" role="alert">
+            <i class="fa fa-exclamation"></i>
+            <span class="sr-only">Success:</span>{{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(edit_form) }}
+        <div class="form-group">
+            {{ form_label(edit_form.title) }}
+            {{ form_errors(edit_form.title) }}
+            {{ form_widget(edit_form.title) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.image, null, {'label_attr': {'style': 'display: block'}}) }}
+            {{ form_errors(edit_form.image) }}
+            <div id="image-holder">
+                <img class="thumb-image img-responsive" id="img" src="{{asset(article.image)}}">
+            </div>
+            <label class="btn main-color btn-file">
+                {{ form_widget(edit_form.image, {'attr': {'style': 'display: none'}}) }}Browse&hellip;
+            </label>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.categories) }}
+            {{ form_errors(edit_form.categories) }}
+            {{ form_widget(edit_form.categories) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.content) }}
+            {{ form_errors(edit_form.content) }}
+            {{ form_widget(edit_form.content) }}
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Edit" class="btn main-color" />
+            <a class="btn main-color" href="{{ path('article_index') }}">Back to the list</a>
+        </div>
+    {{ form_end(edit_form) }}
+
+{% endblock %}

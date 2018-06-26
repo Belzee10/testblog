@@ -1,0 +1,10 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_start %}
+    {% if attr.novalidate is not defined %}
+        {% set attr = attr|merge({'novalidate':'novalidate'}) %}
+    {% endif %}
+    {#{% set attr = attr|merge({'class':'form-validator'}) %}#}
+    {{ parent() }}
+{% endblock %}
+

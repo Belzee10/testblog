@@ -1,0 +1,30 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+
+    encoders:
+        TestBlogBundle\Entity\User: bcrypt
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        users:
+            entity:  { class: TestBlogBundle:User, property: email }
+
+    firewalls:
+        main:
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: /
+                always_use_default_target_path: true
+            logout:
+                path:   /logout
+                target: /
+
+    access_control:
+            - { path: ^/article/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/art/*, roles: ROLE_AUTHOR }
+            - { path: ^/user/*, roles: ROLE_ADMIN }
+
+

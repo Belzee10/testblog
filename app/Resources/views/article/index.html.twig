@@ -1,0 +1,47 @@
+{% extends '::layout.html.twig' %}
+{% block title %}{{ parent() }} | List of Articles{% endblock %}
+
+{% block content %}
+
+    <div>
+        <a class="btn main-color" href="{{ path('article_new') }}">Create a new Article</a>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Content</th>
+                <th>Categories</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ article.title|truncate(15) }}</td>
+                <td><img width="50px" height="50px" src="{{asset(article.image)}}" /></td>
+                <td>{{ article.content|truncate(40) }}</td>
+                <td>{{ article.categories }}</td>
+                <td>{% if article.date %}{{ article.date|date('Y-m-d') }}{% endif %}</td>
+                <td class="text-left">
+                    <a  class="actions edit" href="{{ path('article_edit', { 'id': article.id }) }}">
+                        Edit
+                    </a>
+                    <a  class="actions del delete" data-pathdelete="{{ path('article_delete', {'id': article.id}) }}">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+{% endblock %}

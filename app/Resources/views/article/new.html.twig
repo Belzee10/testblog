@@ -1,0 +1,63 @@
+{% extends '::layout.html.twig' %}
+{% block title %}{{ parent() }} | Article creation{% endblock %}
+
+{% block content %}
+
+    {%for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            {% if type=='error' %}
+                <div class="alert alert-danger mensajes msg" role="alert">
+                    <i class="fa fa-warning"></i>
+                    <span class="sr-only">Error:</span>{{ flashMessage }}
+                </div>
+            {% endif %}
+            {% if type=='success' %}
+                <div class="alert alert-success msg" role="alert">
+                    <i class="fa fa-exclamation"></i>
+                    <span class="sr-only">Success:</span>{{ flashMessage }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error_image') %}
+        <div class="alert alert-danger">
+            <p>{{ flashMessage }}</p>
+        </div>
+    {% endfor %}
+
+    {{ form_start(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.image, null, {'label_attr': {'style': 'display: block'}}) }}
+            {{ form_errors(form.image) }}
+            <div id="image-holder">
+                <img class="thumb-image img-responsive" id="img" src="{{asset('bundles/TestBlog/img/defaultImagen.png')}}">
+            </div>
+            <label class="btn main-color btn-file">
+                {{ form_widget(form.image, {'attr': {'style': 'display: none'}}) }}Browse&hellip;
+            </label>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.categories) }}
+            {{ form_errors(form.categories) }}
+            {{ form_widget(form.categories) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.content) }}
+            {{ form_errors(form.content) }}
+            {{ form_widget(form.content) }}
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn main-color" />
+            <a class="btn main-color" href="{{ path('article_index') }}">Back to the list</a>
+        </div>
+
+    {{ form_end(form) }}
+{% endblock %}
